@@ -13,8 +13,11 @@ export const quickschedulePlugin =
     const config = resolveConfig(pluginConfig)
     const collections = createCollections(config)
 
-    return {
+    const result = {
       ...incomingConfig,
       collections: [...(incomingConfig.collections || []), ...collections],
     }
+    // Store resolved config for route handlers to access
+    ;(result as any)._quickschedule = config
+    return result
   }
