@@ -1,3 +1,15 @@
 export { quickschedulePlugin } from './plugin.js'
 export { resolveConfig } from './defaults.js'
-export type { QuickScheduleConfig, ResolvedQuickScheduleConfig } from './types/index.js'
+
+// Re-export commonly used types
+export type {
+  QuickScheduleConfig,
+  ResolvedQuickScheduleConfig,
+  Provider,
+  AppointmentType,
+  Booking,
+  BlockedTime,
+  BookingInput,
+  AvailabilityResponse,
+  BookingResponse,
+} from './types/index.js'

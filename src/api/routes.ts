@@ -44,7 +44,7 @@ export function createRouteHandlers(payloadConfigPromise: unknown) {
 
         case 'appointment-types': {
           const providerId = url.searchParams.get('providerId')
-          const where: Record<string, unknown> = { active: { equals: true } }
+          const where: any = { active: { equals: true } }
           if (providerId) {
             where.or = [
               { provider: { equals: providerId } },
