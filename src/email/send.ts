@@ -36,6 +36,9 @@ export async function sendEmail(
     case 'resend':
       await sendViaResend(payload, emailConfig)
       break
+    case 'ses':
+      await sendViaSES(payload, emailConfig)
+      break
     default:
       if (process.env.NODE_ENV !== 'production') {
         console.log('[quickschedule] Email (no provider):', payload.subject, '->', payload.to)
@@ -70,5 +73,42 @@ async function sendViaResend(
 
   if (!response.ok) {
     console.error('[quickschedule] Resend error:', await response.text())
+  }
+}
+
+async function sendViaSES(
+  payload: { to: string; subject: string; html: string; text?: string },
+  config: QuickScheduleEmailConfig,
+): Promise<void> {
+  let SESClient: any
+  let SendEmailCommand: any
+  try {
+    const ses = await import('@aws-sdk/client-ses')
+    SESClient = ses.SESClient
+    SendEmailCommand = ses.SendEmailCommand
+  } catch {
+    console.error('[quickschedule] @aws-sdk/client-ses is not installed. Run: npm install @aws-sdk/client-ses')
+    return
+  }
+
+  const client = new SESClient({ region: config.region || 'us-east-1' })
+
+  const command = new SendEmailCommand({
+    Source: config.from || 'noreply@example.com',
+    Destination: { ToAddresses: [payload.to] },
+    Message: {
+      Subject: { Data: payload.subject },
+      Body: {
+        Html: { Data: payload.html },
+        ...(payload.text ? { Text: { Data: payload.text } } : {}),
+      },
+    },
+    ...(config.replyTo ? { ReplyToAddresses: [config.replyTo] } : {}),
+  })
+
+  try {
+    await client.send(command)
+  } catch (error) {
+    console.error('[quickschedule] SES error:', error)
   }
 }

@@ -37,7 +37,13 @@
   },
   "peerDependencies": {
     "payload": "^3.0.0",
-    "react": "^18.0.0 || ^19.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "@aws-sdk/client-ses": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-ses": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "payload": "^3.0.0",

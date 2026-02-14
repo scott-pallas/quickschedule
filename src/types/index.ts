@@ -3,10 +3,11 @@ import type { CollectionConfig } from 'payload'
 // --- Plugin Configuration ---
 
 export interface QuickScheduleEmailConfig {
-  provider?: 'resend' | 'nodemailer' | 'console' | 'custom'
+  provider?: 'resend' | 'ses' | 'console' | 'custom'
   apiKey?: string
   from?: string
   replyTo?: string
+  region?: string
   sendFn?: (email: EmailPayload) => Promise<void>
   templates?: Partial<Record<EmailTemplateName, EmailTemplate>>
   variables?: Record<string, string>
