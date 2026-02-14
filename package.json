@@ -1,0 +1,56 @@
+{
+  "name": "@nineteenlabs/quickschedule",
+  "version": "0.1.0",
+  "description": "Open-source scheduling plugin for Payload CMS 3",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./api": {
+      "import": "./dist/api/index.js",
+      "types": "./dist/api/index.d.ts"
+    },
+    "./react": {
+      "import": "./dist/react/index.js",
+      "types": "./dist/react/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm run build"
+  },
+  "peerDependencies": {
+    "payload": "^3.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "payload": "^3.0.0",
+    "react": "^19.0.0",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.7.0",
+    "tsup": "^8.0.0",
+    "vitest": "^3.0.0",
+    "@types/node": "^22.0.0"
+  },
+  "keywords": ["payload", "payload-plugin", "scheduling", "booking", "appointments"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nineteenlabs/quickschedule"
+  }
+}
